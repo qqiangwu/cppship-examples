@@ -1,0 +1,7 @@
+[package]
+name = "dep"
+version = "0.1.0"
+std = 17
+
+[dependencies]
+fmt = "9.1.0"
