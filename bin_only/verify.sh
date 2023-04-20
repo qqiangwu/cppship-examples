@@ -3,4 +3,4 @@
 set -e
 
 test -x build/debug/bin_only
-test "$(build/debug/bin_only)" = "Hello cppship"
+test "$(cppship run | tail -n1)" = "Hello cppship"

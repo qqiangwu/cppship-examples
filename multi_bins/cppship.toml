@@ -1,5 +1,5 @@
 [package]
-name = "multi_bin"
+name = "multi_bins"
 version = "0.1.0"
 std = 17
 

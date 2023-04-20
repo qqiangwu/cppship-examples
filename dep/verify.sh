@@ -3,4 +3,4 @@
 set -e
 
 test -x build/debug/dep
-test "$(build/debug/dep)" = "fmtlib"
+test "$(cppship run | tail -n1)" = "fmtlib"
