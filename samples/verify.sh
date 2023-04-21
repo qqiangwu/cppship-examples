@@ -16,6 +16,8 @@ test "$(cppship run -q --example b)" = "example_b"
 test -x build/debug/a
 test -x build/debug/b
 
+test "$(cppship run -q --example c)" = "1"
+
 rm -rf build
 cppship build --examples
 test -x build/debug/a
