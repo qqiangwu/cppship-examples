@@ -2,5 +2,8 @@
 
 set -e
 
+cppship build
 test -x build/debug/dep
-test "$(cppship run | tail -n1)" = "fmtlib"
+test "$(cppship run -q)" = "fmtlib"
+
+cppship test

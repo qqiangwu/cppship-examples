@@ -2,6 +2,7 @@
 
 set -e
 
+cppship build
 test -x build/debug/multi_bins
 test -x build/debug/bin1
 test -x build/debug/bin2

@@ -6,7 +6,7 @@ for dir in */;
 do
     echo "test cppship in ${dir}"
     cd ${dir}
-    cppship build
+    rm -rf build
     bash verify.sh
     cd ..
 done
