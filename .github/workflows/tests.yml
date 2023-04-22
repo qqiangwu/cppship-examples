@@ -8,17 +8,15 @@ jobs:
         os: [ubuntu-22.04]
     runs-on: ${{ matrix.os }}
     steps:
-      - name: Echo
-        run: echo Hellow
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
 
-  label:
-    needs: test-bot
-    if: github.event_name == 'pull_request' && !contains(github.event.pull_request.title, 'skip-build') && github.event.pull_request.user.login == github.repository_owner
-    runs-on: ubuntu-22.04
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-      - name: "Add Label"
-        env:
-          GITHUB_TOKEN: ${{ secrets.PR_PULL_TOKEN }}
-        run: gh pr edit "$(echo $GITHUB_REF | awk 'BEGIN { FS = "/" } ; { print $3 }')" --add-label "pr-pull"
+      - name: show diff
+        run: |
+          echo ${{github.event.pull_request.base.ref}}
+          echo ${{github.event.pull_request.base.sha}}
+          echo ${{github.event.pull_request.head.ref}}
+          echo ${{github.event.pull_request.head.sha}}
+          mergebase=$(git merge-base --fork-point origin/${{github.event.pull_request.base.ref}})
+          git diff ${mergebase}
