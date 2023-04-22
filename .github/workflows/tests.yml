@@ -1,0 +1,24 @@
+name: brew test-bot
+on:
+  pull_request:
+jobs:
+  test-bot:
+    strategy:
+      matrix:
+        os: [ubuntu-22.04]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - name: Echo
+        run: echo Hellow
+
+  label:
+    needs: test-bot
+    if: github.event_name == 'pull_request' && !contains(github.event.pull_request.title, 'skip-build') && github.event.pull_request.user.login == github.repository_owner
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: "Add Label"
+        env:
+          GITHUB_TOKEN: ${{ secrets.PR_PULL_TOKEN }}
+        run: gh pr edit "$(echo $GITHUB_REF | awk 'BEGIN { FS = "/" } ; { print $3 }')" --add-label "pr-pull"
