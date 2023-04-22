@@ -25,4 +25,5 @@ test -x build/debug/b_bench
 test ! -f build/release/a_bench
 test ! -f build/release/b_bench
 
-test "$(cppship bench -q)" = "bench_a_1bench_b_1"
+cppship bench -q | grep "bench_a_1bench_b_1"
+cppship bench -q c | grep "BM_SomeFunction"
