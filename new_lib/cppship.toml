@@ -1,0 +1,6 @@
+[package]
+name = "new_lib"
+version = "0.1.0"
+std = 17
+
+[dependencies]
