@@ -37,3 +37,7 @@ test -x build/release/examples/a
 test -x build/release/examples/b
 test -x build/release/a_test
 test -x build/release/samples
+
+cppship run --example xxx | grep 'example `xxx` not found'
+cppship run --bin xxx | grep 'binary `xxx` not found'
+cppship bench xxx | grep 'bench `xxx` not found'
