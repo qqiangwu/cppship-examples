@@ -1,6 +1,6 @@
-#include <iostream>
+#include <fmt/core.h>
 
 int main()
 {
-    std::cout << "b2";
+    fmt::print("b2");
 }
