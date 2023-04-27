@@ -1,0 +1,13 @@
+[package]
+name = "profiles"
+version = "0.1.0"
+std = 17
+
+[profile]
+definitions = ["A=1", "B=2"]
+
+[profile.debug]
+definitions = ["C"]
+
+[profile.release]
+definitions = ["D"]
