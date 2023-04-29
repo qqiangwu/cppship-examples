@@ -1,0 +1,8 @@
+[package]
+name = "cmake_gen"
+version = "0.1.0"
+std = 17
+
+[dependencies]
+scope_guard = { git = "https://github.com/Neargye/scope_guard.git", commit = "fa60305b5805dcd872b3c60d0bc517c505f99502" }
+fmt = "9.1.0"
