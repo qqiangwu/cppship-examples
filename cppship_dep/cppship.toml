@@ -1,0 +1,9 @@
+[package]
+name = "cppship_dep"
+version = "0.1.0"
+std = 17
+
+[dependencies]
+header_only = { git = "https://github.com/cppship/demo_header_only.git", commit = "93f6793" }
+simple_lib = { git = "https://github.com/cppship/demo_lib.git", commit = "25dbedf" }
+fmt = "9.1.0"
