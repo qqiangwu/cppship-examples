@@ -1,0 +1,9 @@
+[package]
+name = "ubsan"
+version = "0.1.0"
+std = 17
+
+[dependencies]
+
+[profile.debug]
+tsan = true
