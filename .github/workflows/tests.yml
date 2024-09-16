@@ -1,0 +1,22 @@
+name: brew test-bot
+on:
+  pull_request:
+jobs:
+  test-bot:
+    strategy:
+      matrix:
+        os: [ubuntu-22.04]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: show diff
+        run: |
+          echo ${{github.event.pull_request.base.ref}}
+          echo ${{github.event.pull_request.base.sha}}
+          echo ${{github.event.pull_request.head.ref}}
+          echo ${{github.event.pull_request.head.sha}}
+          mergebase=$(git merge-base --fork-point origin/${{github.event.pull_request.base.ref}})
+          git diff ${mergebase}
