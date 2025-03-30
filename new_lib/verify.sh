@@ -5,6 +5,7 @@ rm -rf include
 rm -rf src
 mkdir src
 
+# we have a binary first, then a header only lib is added
 cat <<EOF > src/main.cpp
 int main()
 {
