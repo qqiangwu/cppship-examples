@@ -1,0 +1,2 @@
+[workspace]
+members = ["cppship_dep", "dep", "header_only_dep"]

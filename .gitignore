@@ -1,3 +1,6 @@
 build
 .build
 .cache
+cmake
+CMakeLists.txt
+conanfile.txt

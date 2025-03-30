@@ -1,0 +1,8 @@
+[package]
+name = "dep"
+version = "0.1.0"
+std = 20
+
+[dependencies]
+fmt = "9.1.0"
+ms-gsl = "4.1.0"
