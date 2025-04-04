@@ -3,6 +3,6 @@
 
 int main()
 {
-    constexpr gsl::czstring s = "fmtlib";
+    constexpr gsl::czstring s = "dep";
     fmt::print(s);
 }

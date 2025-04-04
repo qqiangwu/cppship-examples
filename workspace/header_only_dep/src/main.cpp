@@ -3,5 +3,5 @@
 
 int main()
 {
-    SCOPE_EXIT { std::cout << "okay"; };
+    SCOPE_EXIT { std::cout << "header_only_dep"; };
 }
