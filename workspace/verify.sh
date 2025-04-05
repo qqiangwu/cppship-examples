@@ -122,3 +122,6 @@ echo $out | grep -v "test-4_test"
 out=$(cppship test -q -R test-2 -p dep)
 echo $out | grep "test-2_test"
 echo $out | grep -v "test-2x_test"
+
+# cppship install
+echo "$(cppship install)" | grep -e "install for workspace is not supported$"
