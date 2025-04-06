@@ -3,12 +3,6 @@
 set -e
 set -x
 
-if $(python3 ../cppship_version_less.py 0.8)
-then
-    echo "cppship version too low: $(cppship --version)"
-    exit 0;
-fi
-
 function cleanup() {
     cmake --build build/debug --target clean
 }
@@ -19,12 +13,6 @@ test -x build/debug/dep
 test -x build/debug/header_only_dep
 test -x build/debug/cppship_dep
 test -f build/debug/libsimple_lib_lib.a
-
-if $(python3 ../cppship_version_less.py 0.8.1)
-then
-    echo "cppship version too low: $(cppship --version)"
-    exit 0;
-fi
 
 cleanup
 cppship build -p dep
@@ -42,39 +30,45 @@ test -f build/debug/libsimple_lib_lib.a
 
 cleanup
 cppship build --examples
-test -x build/debug/examples/ex1
-test -x build/debug/examples/ex2
+test -x build/debug/examples/cppship_dep_ex1_example
+test -x build/debug/examples/dep_ex1_example
+test -x build/debug/examples/dep_ex2_example
 
 cleanup
 cppship build --examples -p cppship_dep
-test -x build/debug/examples/ex1
-test ! -f build/debug/examples/ex2
+test -x build/debug/examples/cppship_dep_ex1_example
+test ! -f build/debug/examples/dep_ex1_example
+test ! -f build/debug/examples/dep_ex2_example
 
 cleanup
 cppship build --tests
-test -x build/debug/test-1_test
-test -x build/debug/test-2_test
-test -x build/debug/test-2x_test
-test -x build/debug/test-3_test
-test -x build/debug/test-4_test
+test -x build/debug/tests/cppship_dep_test-1_test
+test -x build/debug/tests/dep_test-2_test
+test -x build/debug/tests/cppship_dep_test-2_test
+test -x build/debug/tests/cppship_dep_test-3_test
+test -x build/debug/tests/dep_test-4_test
 
 cleanup
 cppship build --tests -p dep
-test ! -f build/debug/test-1_test
-test -x build/debug/test-2_test
-test ! -f build/debug/test-2x_test
-test ! -f build/debug/test-3_test
-test -x build/debug/test-4_test
+test ! -f build/debug/tests/cppship_dep_test-1_test
+test -x build/debug/tests/dep_test-2_test
+test ! -f build/debug/tests/cppship_dep_test-2_test
+test ! -f build/debug/tests/cppship_dep_test-3_test
+test -x build/debug/tests/dep_test-4_test
 
 cleanup
 cppship build --benches
-test -x build/debug/b1_bench
-test -x build/debug/b2_bench
+test -x build/debug/benches/cppship_dep_b1_bench
+test -x build/debug/benches/cppship_dep_b2_bench
+test -x build/debug/benches/dep_b1_bench
+test -x build/debug/benches/dep_b2_bench
 
 cleanup
 cppship build --benches -p cppship_dep
-test -x build/debug/b1_bench
-test ! -f build/debug/b2_bench
+test -x build/debug/benches/cppship_dep_b1_bench
+test -x build/debug/benches/cppship_dep_b2_bench
+test ! -f build/debug/benches/dep_b1_bench
+test ! -f build/debug/benches/dep_b2_bench
 
 cppship build --bins
 test -x build/debug/dep
@@ -103,25 +97,29 @@ test "$(cppship run -q --bin cppship_dep)" = "ans-7"
 
 # cppship test
 out=$(cppship test -q)
-echo $out | grep "test-1_test"
-echo $out | grep "test-2_test"
-echo $out | grep "test-2x_test"
-echo $out | grep "test-3_test"
-echo $out | grep "test-4_test"
+echo $out | grep "cppship_dep_test-1_test"
+echo $out | grep "cppship_dep_test-2_test"
+echo $out | grep "cppship_dep_test-3_test"
+echo $out | grep "dep_test-2_test"
+echo $out | grep "dep_test-4_test"
 
 out=$(cppship test -q -p dep)
-echo $out | grep "test-2_test"
-echo $out | grep -v "test-1_test"
+echo $out | grep -v "cppship_dep_test-1_test"
+echo $out | grep -v "cppship_dep_test-2_test"
+echo $out | grep -v "cppship_dep_test-3_test"
+echo $out | grep "dep_test-2_test"
+echo $out | grep "dep_test-4_test"
 
 out=$(cppship test -q -R test-2)
-echo $out | grep "test-2_test"
-echo $out | grep "test-2x_test"
+echo $out | grep "cppship_dep_test-2_test"
+echo $out | grep "dep_test-2_test"
+echo $out | grep -v "test-1_test"
 echo $out | grep -v "test-3_test"
 echo $out | grep -v "test-4_test"
 
 out=$(cppship test -q -R test-2 -p dep)
-echo $out | grep "test-2_test"
-echo $out | grep -v "test-2x_test"
+echo $out | grep -v "cppship_dep_test-2_test"
+echo $out | grep "dep_test-2_test"
 
 # cppship install
 echo "$(cppship install)" | grep -e "install for workspace is not supported$"

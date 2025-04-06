@@ -3,14 +3,14 @@
 set -e
 
 cppship build
-test ! -f build/debug/a_test
+test ! -f build/debug/tests/test_only_a_test
 
 cppship test
-test -x build/debug/a_test
+test -x build/debug/tests/test_only_a_test
 
 rm -rf build
 cppship build --tests
-test -x build/debug/a_test
+test -x build/debug/tests/test_only_a_test
 
 rm -rf build
 cppship test c | grep 'test `c` not found'
